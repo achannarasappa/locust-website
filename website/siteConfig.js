@@ -1,8 +1,8 @@
 const siteConfig = {
   title: 'Locust',
   tagline: 'Serverless web data discovery and extraction framework',
-  url: 'https://achannarasappa.github.io',
-  baseUrl: '/locust-website/',
+  url: 'https://locust.dev',
+  baseUrl: '/',
   projectName: 'locust-website',
   organizationName: 'achannarasappa',
   headerLinks: [
