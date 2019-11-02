@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Deploy · Locust</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;In this guide, we&#x27;ll deploy a Locust job along with all associated resources to a cloud provider. Locust is cloud provider agnostic however deployment is specific to each provider.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Deploy · Locust"/><meta property="og:type" content="website"/><meta property="og:url" content="locust.dev/locust/"/><meta property="og:description" content="&lt;p&gt;In this guide, we&#x27;ll deploy a Locust job along with all associated resources to a cloud provider. Locust is cloud provider agnostic however deployment is specific to each provider.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/locust/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dark.min.css"/><script src="/locust/js/scrollSpy.js"></script><link rel="stylesheet" href="/locust/css/main.css"/><script src="/locust/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/locust/"><img class="logo" src="/locust/img/favicon.ico" alt="Locust"/><h2 class="headerTitleWithLogo">Locust</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/locust/docs/getting_started" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/locust/docs/api" target="_self">API</a></li><li class="siteNavGroupActive"><a href="/locust/docs/cli" target="_self">CLI</a></li><li class=""><a href="https://github.com/achannarasappa/locust" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Usage</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/roadmap">Roadmap</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/getting_started">Getting Started</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/develop">Develop</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/locust/docs/deploy">Deploy</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/operate">Operate</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/api">API</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/cli">CLI</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/lifecycle">Lifecycle</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/architecture">Architecture</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Deploy</h1></header><article><div><span><p>In this guide, we'll deploy a Locust job along with all associated resources to a cloud provider. Locust is cloud provider agnostic however deployment is specific to each provider.</p>
+<h2><a class="anchor" aria-hidden="true" id="common"></a><a href="#common" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Common</h2>
+<p>With any cloud provider, there will be at minimum two common integration points:</p>
+<ol>
+<li>Call to the <a href="/docs/api#function-executejobdefinition"><code>execute</code></a> function once in the cloud function to start the job</li>
+<li>Call to the cloud provider specific mechanism to invoke the cloud function in the <a href="http://localhost:3001/docs/api#function-start">start hook</a></li>
+</ol>
+<p>Optionally, depending on the use case, there may be integration with a persistence layer in the <a href="http://localhost:3001/docs/api#function-after">after hook</a></p>
+<h2><a class="anchor" aria-hidden="true" id="prequisites-setup"></a><a href="#prequisites-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Prequisites &amp; Setup</h2>
+<ul>
+<li><a href="https://www.terraform.io/downloads.html">terraform</a> installed</li>
+<li>Cloud provider account and associated access setup</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="amazon-web-services"></a><a href="#amazon-web-services" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Amazon Web Services</h2>
+<p>Deploy a Locust job to AWS Lambda configure related resources such as AWS ElasticCache and AWS Fargate</p>
+<h3><a class="anchor" aria-hidden="true" id="create-a-handler"></a><a href="#create-a-handler" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a handler</h3>
+<p>In order to make Locust callable on AWS Lambda, a handler function that will recieve the request and start a single job:</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// handler.js</span>
+<span class="hljs-keyword">const</span> { execute } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'locust'</span>);
+<span class="hljs-keyword">const</span> job = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./job'</span>);
+
+<span class="hljs-built_in">module</span>.exports.start = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> execute(job);
+</code></pre>
+<p>The <a href="http://localhost:3001/docs/api#function-start"><code>start</code> hook</a> in the job will also need to invoke a new lambda function:</p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// job.js</span>
+...
+start: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> lambda.invoke({
+  <span class="hljs-attr">FunctionName</span>: <span class="hljs-string">'locust-example-lambda-invokation'</span>,
+  <span class="hljs-attr">InvocationType</span>: <span class="hljs-string">'Event'</span>,
+}).promise(),
+...
+</code></pre>
+<p><details>
+<summary>Example job with AWS Lambda invokation</summary></p>
+<pre><code class="hljs css language-js"><span class="hljs-comment">// job.js</span>
+<span class="hljs-keyword">const</span> AWS = <span class="hljs-built_in">require</span>(<span class="hljs-string">'aws-sdk'</span>);
+<span class="hljs-keyword">const</span> lambda = <span class="hljs-keyword">new</span> AWS.Lambda({ <span class="hljs-attr">apiVersion</span>: <span class="hljs-string">'2015-03-31'</span> });
+
+<span class="hljs-built_in">module</span>.exports job = {
+  <span class="hljs-attr">extract</span>: <span class="hljs-keyword">async</span> ($, browser) =&gt; ({
+    <span class="hljs-string">'title'</span>: <span class="hljs-keyword">await</span> $(<span class="hljs-string">'title'</span>),
+  }),
+  <span class="hljs-attr">start</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> lambda.invoke({
+      <span class="hljs-attr">FunctionName</span>: <span class="hljs-string">'locust-example-lambda-invokation'</span>,
+      <span class="hljs-attr">InvocationType</span>: <span class="hljs-string">'Event'</span>,
+    }).promise(),
+  <span class="hljs-attr">after</span>: <span class="hljs-function">(<span class="hljs-params">jobResult, snapshot, stop</span>) =&gt;</span> {
+
+    <span class="hljs-built_in">console</span>.log(jobResult.data)
+
+  },
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://localhost:3000'</span>,
+  <span class="hljs-attr">config</span>: {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'example-job'</span>,
+    <span class="hljs-attr">concurrencyLimit</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">depthLimit</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">delay</span>: <span class="hljs-number">3000</span>,
+  },
+  <span class="hljs-attr">connection</span>: {
+    <span class="hljs-attr">redis</span>: {
+      <span class="hljs-attr">port</span>: <span class="hljs-number">6379</span>,
+      <span class="hljs-attr">host</span>: process.env.REDIS_HOST
+    },
+    <span class="hljs-attr">chrome</span>: {
+      <span class="hljs-attr">browserWSEndpoint</span>: <span class="hljs-string">`ws://<span class="hljs-subst">${process.env.CHROME_HOST}</span>:3000`</span>,
+    },
+  }
+};
+</code></pre>
+<p></details></p>
+<h4><a class="anchor" aria-hidden="true" id="bundle"></a><a href="#bundle" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bundle</h4>
+<p>Bundle the source along with any dependencies:</p>
+<pre><code class="hljs css language-sh">zip -r ../src.zip ./
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="define-resources"></a><a href="#define-resources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Define resources</h3>
+<p>With source bundled, the next step is to create the Lambda and any other infrastructure resources. In order to accelerate this process, a terraform module, <a href="https://github.com/achannarasappa/locust-aws-terraform">locust-aws-terraform</a>, was created that will setup the resources needed by Locust and should be suitable for most use cases.</p>
+<p>Add a reference to the module in your <code>main.tf</code> or equivalent terraform file:</p>
+<pre><code class="hljs css language-hcl"><span class="hljs-comment"># main.tf</span>
+module <span class="hljs-string">"locust"</span> {
+  <span class="hljs-attr">source</span>             = <span class="hljs-string">"github.com/achannarasappa/locust-aws-terraform"</span>
+  <span class="hljs-attr">private_subnet_ids</span> = &lt;private_subnets&gt; <span class="hljs-comment"># replace</span>
+  <span class="hljs-attr">public_subnet_ids</span>  = &lt;public_subnets&gt; <span class="hljs-comment"># replace</span>
+  <span class="hljs-attr">vpc_id</span>             = &lt;vpc_id&gt; <span class="hljs-comment"># replace</span>
+}
+</code></pre>
+<p>Add a lambda function that references the above bundle:</p>
+<pre><code class="hljs css language-hcl">resource <span class="hljs-string">"aws_lambda_function"</span> <span class="hljs-string">"locust_job"</span> {
+  <span class="hljs-attr">filename</span>         = <span class="hljs-string">"src.js"</span>
+  <span class="hljs-attr">source_code_hash</span> = filebase64sha256(<span class="hljs-string">"src.js"</span>)
+
+  <span class="hljs-attr">handler</span> = <span class="hljs-string">"handler.start"</span>
+  <span class="hljs-attr">runtime</span> = <span class="hljs-string">"nodejs10.x"</span>
+  ...
+}
+</code></pre>
+<p>The Lambda will also need access to other AWS resources. These are encapsulated in the role exposed by <code>locust-aws-terraform</code>:</p>
+<pre><code class="hljs css language-hcl">resource <span class="hljs-string">"aws_lambda_function"</span> <span class="hljs-string">"locust_job"</span> {
+  <span class="hljs-built_in">..</span>.
+  role = <span class="hljs-string">"<span class="hljs-variable">${module.locust.iam_role_arn}</span>"</span>
+  <span class="hljs-built_in">..</span>.
+}
+</code></pre>
+<p>Finally, the hostnames for both the Chrome and Redis instances will need to be passed to the Lambda as environment variables:</p>
+<pre><code class="hljs css language-hcl">resource <span class="hljs-string">"aws_lambda_function"</span> <span class="hljs-string">"locust_job"</span> {
+  ...
+  environment {
+      <span class="hljs-attr">variables</span> = {
+        <span class="hljs-attr">CHROME_HOST</span> = <span class="hljs-string">"<span class="hljs-subst">${module.locust.chrome_hostname}</span>"</span>
+        <span class="hljs-attr">REDIS_HOST</span>  = <span class="hljs-string">"<span class="hljs-subst">${module.locust.redis_hostname}</span>"</span>
+      }
+    }
+  ...
+}
+</code></pre>
+<p>A full example of the <code>main.tf</code> file can be found in the <a href="https://github.com/achannarasappa/locust-aws-terraform/tree/master/examples/single-lambda">single-lambda example</a></p>
+<h3><a class="anchor" aria-hidden="true" id="provision"></a><a href="#provision" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provision</h3>
+<p>Push the changes to AWS:</p>
+<pre><code class="hljs css language-sh">terraform init
+terraform plan
+terraform apply
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="reference"></a><a href="#reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h3>
+<ul>
+<li><a href="https://github.com/achannarasappa/locust">locust</a></li>
+<li><a href="https://github.com/achannarasappa/locust-aws-terraform">locust-aws-terraform</a>
+<ul>
+<li><a href="https://github.com/achannarasappa/locust-aws-terraform/tree/master/examples/single-lambda">AWS single job complete example</a></li>
+</ul></li>
+<li><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/index.html">AWS JavaScript SDK</a>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Lambda.html#invoke-property">AWS Lambda Invoke API reference</a></li>
+</ul></li>
+<li><a href="https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html">AWS Lambda function handler guide</a></li>
+</ul>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 11/2/2019 by Ani Channarasappa</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/locust/docs/develop"><span class="arrow-prev">← </span><span>Develop</span></a><a class="docs-next button" href="/locust/docs/operate"><span>Operate</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#common">Common</a></li><li><a href="#prequisites-setup">Prequisites &amp; Setup</a></li><li><a href="#amazon-web-services">Amazon Web Services</a><ul class="toc-headings"><li><a href="#create-a-handler">Create a handler</a></li><li><a href="#define-resources">Define resources</a></li><li><a href="#provision">Provision</a></li><li><a href="#reference">Reference</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/locust/" class="nav-home"><img src="/locust/img/favicon.ico" alt="Locust" width="66" height="58"/></a><div><h5>Docs</h5><a href="/locust/docs/en/getting_started">Getting Started</a><a href="/locust/docs/en/api">API Reference</a><a href="/locust/docs/en/cli">CLI Reference</a></div><div><h5>GitHub</h5><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Repository</a><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Issues</a></div></section><section class="copyright">Copyright © 2019 Ani Channarasappa</section></footer></div></body></html>

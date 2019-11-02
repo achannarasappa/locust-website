@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Locust · Serverless web data discovery and extraction framework</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Serverless web data discovery and extraction framework"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Locust · Serverless web data discovery and extraction framework"/><meta property="og:type" content="website"/><meta property="og:url" content="locust.dev/locust/"/><meta property="og:description" content="Serverless web data discovery and extraction framework"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/locust/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dark.min.css"/><script src="/locust/js/scrollSpy.js"></script><link rel="stylesheet" href="/locust/css/main.css"/><script src="/locust/js/codetabs.js"></script></head><body><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/locust/"><img class="logo" src="/locust/img/favicon.ico" alt="Locust"/><h2 class="headerTitleWithLogo">Locust</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/locust/docs/getting_started" target="_self">Docs</a></li><li class=""><a href="/locust/docs/api" target="_self">API</a></li><li class=""><a href="/locust/docs/cli" target="_self">CLI</a></li><li class=""><a href="https://github.com/achannarasappa/locust" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div><div class="hero-container"><link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700|Viga&amp;display=swap" rel="stylesheet"/><script src="https://kit.fontawesome.com/112ad9ad9e.js"></script><div class="container"><div class="row"><div class="col"><h1 class="header-hero">Locust</h1><div class="subheader-hero">Distributed web data discovery and collection framework</div></div></div><div class="row"><div class="col-md-4 offset-md-4"><div><span><pre><code class="hljs css language-sh">npm install @achannarasappa/locust
+</code></pre>
+</span></div></div></div></div></div><div class="summary-container"><div class="container"><div class="row"><div class="col-lg-8"><div class="section-header">Features</div><hr/></div><div class="col"><div class="section-header">Use Cases</div><hr/></div></div><div class="row"><div class="col"><div><span><ul>
+<li>Configuration driven jobs</li>
+<li>Distributed execution model</li>
+<li>Handle client-side JavaScript execution</li>
+</ul>
+</span></div></div><div class="col"><div><span><ul>
+<li>Data extraction using CSS selectors</li>
+<li>Depth-based stop condition along with support for custom stop condtions</li>
+<li>Robust dev tooling to build and test jobs</li>
+</ul>
+</span></div></div><div class="col"><div><span><ul>
+<li>Web indexing (i.e. web crawling)</li>
+<li>Web data extraction (i.e. web scraping)</li>
+</ul>
+</span></div></div></div></div></div><div class="featured-container featured-container-dark"><div class="container"><div class="row"><div class="featured-column col-lg-4"><div class="featured-box"><div class="featured-title">Configuration Driven</div><hr/><div class="featured-description"><div><span><p>Define <em>what</em> data and <em>where</em> to find it rather than <em>how</em></p>
+</span></div><div class="featured-reference"><a href="/docs/api#object-jobdefinition">Job Reference</a> • <a href="#">Scraping Guide</a></div></div></div></div><div class="col-lg-8"><div><span><pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = job = {
+  <span class="hljs-attr">extract</span>: <span class="hljs-keyword">async</span> ($) =&gt; ({
+    <span class="hljs-string">'title'</span>: <span class="hljs-keyword">await</span> $(<span class="hljs-string">'title'</span>),
+  }),
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'http://ecommerce-site.com'</span>,
+};
+</code></pre>
+</span></div></div></div></div></div><div class="featured-container featured-container-light"><div class="container"><div class="row"><div class="col-lg-8"><div><span><pre><code class="hljs css language-js"><span class="hljs-built_in">module</span>.exports = job = {
+  ...
+  <span class="hljs-comment">// AWS Lambda</span>
+  start: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> (<span class="hljs-keyword">new</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'aws-sdk'</span>).Lambda()).invoke({ 
+    <span class="hljs-attr">FunctionName</span>: <span class="hljs-string">"locust-job"</span>,
+    <span class="hljs-attr">InvocationType</span>: <span class="hljs-string">"Event"</span>, 
+   }),
+  <span class="hljs-comment">// Google Cloud Functions</span>
+  start: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>).execSync(<span class="hljs-string">'gcloud functions call locust-job'</span>),
+  <span class="hljs-comment">// Linux/Windows Process</span>
+  start: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>).execSync(<span class="hljs-string">'node -e "(async () =&gt; require("./job").start(job))()"'</span>),
+  <span class="hljs-comment">// NodeJS</span>
+  start: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">'locust'</span>).execute(job),
+  ...
+};
+</code></pre>
+</span></div></div><div class="featured-column col-lg-4"><div class="featured-box"><div class="featured-title">Built for Serverless</div><hr/><div class="featured-description"><div class="featured-text">Jobs run independently in separate threads, processes, or cloud functions with Redis as a centralized queue. Just define how to start a new job.</div><div class="featured-reference"><a href="/docs/architecture">Architecture Reference</a> • <a href="#">Deployment Guide</a></div><div class="featured-reference"><a href="/docs/lifecycle">Lifecycle Reference</a></div></div></div></div></div></div></div><div class="featured-container featured-container-dark"><div class="container"><div class="row"><div class="featured-column col-lg-4"><div class="featured-box"><div class="featured-title">Client-side Javascript Execution</div><hr/><div class="featured-description"><div class="featured-text">Handle crawling or scraping single-page applications (SPAs) including those based in AngularJs, React, and Vue.js</div><div class="featured-reference"><a href="/docs/lifecycle">Lifecycle Reference</a> • <a href="#">SPA Example</a></div></div></div></div><div class="col-lg-8"><div><span><pre><code class="hljs"><span class="hljs-built_in">module</span>.exports = job = {
+  <span class="hljs-attr">extract</span>: <span class="hljs-keyword">async</span> ($, page) =&gt; {
+    <span class="hljs-keyword">await</span> page.waitFor(<span class="hljs-string">'.profile'</span>);
+    <span class="hljs-keyword">return</span> {
+      <span class="hljs-attr">firstName</span>: <span class="hljs-keyword">await</span> $(<span class="hljs-string">'.profile &gt; .first_name'</span>),
+      <span class="hljs-attr">lastName</span>: <span class="hljs-keyword">await</span> $(<span class="hljs-string">'.profile &gt; .last_name'</span>),
+    }
+  },
+};
+</code></pre>
+</span></div></div></div></div></div><div class="featured-container featured-container-light"><div class="container"><div class="row"><div class="col-lg-8"><img src="/img/devtools-feature.gif"/></div><div class="featured-column col-lg-4"><div class="featured-box"><div class="featured-title">Powerful Devtools</div><hr/><div class="featured-description"><div class="featured-text">Comprehensive set of command line tools to accelerate development of locust jobs</div><div><span><ul>
+<li>Generator</li>
+<li>Runner</li>
+<li>Validator</li>
+</ul>
+</span></div><div class="featured-reference"><a href="/docs/cli">CLI Reference</a></div></div></div></div></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/locust/" class="nav-home"><img src="/locust/img/favicon.ico" alt="Locust" width="66" height="58"/></a><div><h5>Docs</h5><a href="/locust/docs/en/getting_started">Getting Started</a><a href="/locust/docs/en/api">API Reference</a><a href="/locust/docs/en/cli">CLI Reference</a></div><div><h5>GitHub</h5><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Repository</a><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Issues</a></div></section><section class="copyright">Copyright © 2019 Ani Channarasappa</section></footer></div></body></html>

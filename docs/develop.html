@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Develop · Locust</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Locust can be run locally but it truely shines when run on a serverless provider. When trying out or developing Locust jobs, it is simpler to run Locust locally to avoid extraneous issues related to cloud providers. In this guide, we&#x27;ll get up and running locally with Locust.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Develop · Locust"/><meta property="og:type" content="website"/><meta property="og:url" content="locust.dev/locust/"/><meta property="og:description" content="&lt;p&gt;Locust can be run locally but it truely shines when run on a serverless provider. When trying out or developing Locust jobs, it is simpler to run Locust locally to avoid extraneous issues related to cloud providers. In this guide, we&#x27;ll get up and running locally with Locust.&lt;/p&gt;
+"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/locust/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dark.min.css"/><script src="/locust/js/scrollSpy.js"></script><link rel="stylesheet" href="/locust/css/main.css"/><script src="/locust/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/locust/"><img class="logo" src="/locust/img/favicon.ico" alt="Locust"/><h2 class="headerTitleWithLogo">Locust</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/locust/docs/getting_started" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/locust/docs/api" target="_self">API</a></li><li class="siteNavGroupActive"><a href="/locust/docs/cli" target="_self">CLI</a></li><li class=""><a href="https://github.com/achannarasappa/locust" target="_self">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Usage</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">About</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/overview">Overview</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/roadmap">Roadmap</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Usage</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/getting_started">Getting Started</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/locust/docs/develop">Develop</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/deploy">Deploy</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/operate">Operate</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul class=""><li class="navListItem"><a class="navItem" href="/locust/docs/api">API</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/cli">CLI</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/lifecycle">Lifecycle</a></li><li class="navListItem"><a class="navItem" href="/locust/docs/architecture">Architecture</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Develop</h1></header><article><div><span><p>Locust can be run locally but it truely shines when run on a serverless provider. When trying out or developing Locust jobs, it is simpler to run Locust locally to avoid extraneous issues related to cloud providers. In this guide, we'll get up and running locally with Locust.</p>
+<h2><a class="anchor" aria-hidden="true" id="create-a-job"></a><a href="#create-a-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Create a job</h2>
+<p>The locust-cli provides a generator that steps through creating the basic components of a job:</p>
+<pre><code class="hljs css language-sh">locust generate
+</code></pre>
+<p><details>
+<summary>Example prompt</summary>
+<img src="/locust/docs/assets/generate-demo.gif" alt="a">
+</details></p>
+<p>For more in depth explaination what can be configured in a job, check the <a href="api">API docs</a>.</p>
+<h2><a class="anchor" aria-hidden="true" id="validate-the-job"></a><a href="#validate-the-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Validate the job</h2>
+<p>Before running the job, validate that that is conforms to <a href="api">the spec</a>:</p>
+<pre><code class="hljs css language-sh">locust validate collect-data.js
+</code></pre>
+<p><details>
+<summary>Example output</summary>
+<img src="/locust/docs/assets/validate-demo.gif" alt="a">
+</details></p>
+<h2><a class="anchor" aria-hidden="true" id="test-the-job"></a><a href="#test-the-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Test the job</h2>
+<p>First try running the job in limited-mode to confirm that any data or link extraction is working as expected. While running in limited-mode, Locust will only run against the entrypoint url.</p>
+<pre><code class="hljs css language-sh">locust run collect-data.js -l
+</code></pre>
+<p>In the above response, any fields defined in the <code>extract</code> function and and links one the page should be included which confirms that the job works as expected.</p>
+
+    <div class="admonition admonition-important">
+      <div class="admonition-heading">
+        <h5><div class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></div>  Note</h5>
+      </div>
+      <div class="admonition-content">
+    <p>Lifecycle hooks, queue configuration, and connection configuration are ignored in <a href="cli#limited-mode">limited-mode</a></p>
+</div></div><h2><a class="anchor" aria-hidden="true" id="run-the-job"></a><a href="#run-the-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run the job</h2>
+<h3><a class="anchor" aria-hidden="true" id="setup"></a><a href="#setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h3>
+<p>In order to run Locust in standard-mode, a Redis and Chrome instance must be running. The easiest way to start these is with the CLI.</p>
+
+    <div class="admonition admonition-important">
+      <div class="admonition-heading">
+        <h5><div class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></div>  Note</h5>
+      </div>
+      <div class="admonition-content">
+    <p><a href="https://docs.docker.com/install/overview/">Docker</a> and <a href="https://docs.docker.com/compose/install/">Docker Compose</a> must be installed before running this command.</p>
+</div></div><pre><code class="hljs css language-sh">locust start -b
+</code></pre>
+<p><details>
+<summary>Example output</summary>
+<img src="/locust/docs/assets/run-demo.gif" alt="a">
+</details></p>
+<p>This is a shortcut to start a <a href="https://github.com/achannarasappa/locust-cli/blob/master/lib/start/docker-compose.yml">Docker Compose file</a>. Alternately, the <a href="https://hub.docker.com/_/redis">redis</a> and <a href="https://hub.docker.com/r/browserless/chrome">chrome</a> containers can be started with ad-hoc commands.</p>
+<h3><a class="anchor" aria-hidden="true" id="persistence"></a><a href="#persistence" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Persistence</h3>
+<p>The CLI will save results to a timestamped JSON file (e.g. <code>results-2019-06-29-20-50-22.json</code>) after a run for debug purposes.</p>
+<p><details>
+<summary>Example output</summary></p>
+<pre><code class="hljs css language-js">[
+  {
+    <span class="hljs-string">"data"</span>: {
+      <span class="hljs-string">"title"</span>: <span class="hljs-string">"home"</span>
+    },
+    <span class="hljs-string">"links"</span>: [
+      <span class="hljs-string">"http://localhost:3001/vibrant_margulis"</span>,
+      <span class="hljs-string">"http://localhost:3001/silly_leakey"</span>,
+      <span class="hljs-string">"http://localhost:3001/sleepy_johnson"</span>,
+      <span class="hljs-string">"http://localhost:3001/unruffled_sanderson"</span>,
+      <span class="hljs-string">"http://localhost:3001/elated_sanderson"</span>
+    ],
+    <span class="hljs-string">"url"</span>: <span class="hljs-string">"http://localhost:3001/"</span>
+  }
+]
+</code></pre>
+<p></details></p>
+<p>When running outside the CLI, <code>locust</code> does persist any data. In order to retain data collected during a run, an <code>after</code> hook can be added to the job file:</p>
+<pre><code class="hljs css language-js">...
+after: <span class="hljs-function">(<span class="hljs-params">jobResult</span>) =&gt;</span> client.query(<span class="hljs-string">'INSERT INTO products(name, photo_url) VALUES ($1, $2)'</span>),
+...
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="run"></a><a href="#run" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run</h3>
+<p>Now that the job been proven to work on a single page, run the job in <a href="cli#standard-mode">standard-mode</a> to confirm lifecycle hooks and queue configuration work as expected.</p>
+<pre><code class="hljs css language-sh">locust start collect-data.js
+</code></pre>
+<p><details>
+<summary>Example output</summary>
+<img src="/locust/docs/assets/start-demo.gif" alt="a"></p>
+<p>When the start command is run, the dashboard shows the overall status, the number of jobs in each status, the status of the queue, and a running list of jobs.
+</details></p>
+
+    <div class="admonition admonition-important">
+      <div class="admonition-heading">
+        <h5><div class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></div>  Note</h5>
+      </div>
+      <div class="admonition-content">
+    <p>The <code>start</code> lifecycle hook is ignored when running with the cli in either standard-mode or limited-mode.</p>
+</div></div><h2><a class="anchor" aria-hidden="true" id="reference"></a><a href="#reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reference</h2>
+<ul>
+<li><a href="https://github.com/achannarasappa/locust">locust</a></li>
+<li><a href="https://github.com/achannarasappa/locust-cli">locust-cli</a></li>
+<li><a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md">Puppeteer API docs</a>
+<ul>
+<li><a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#pageselector">$ (query selector)</a></li>
+</ul></li>
+</ul>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 11/2/2019 by Ani Channarasappa</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/locust/docs/getting_started"><span class="arrow-prev">← </span><span>Getting Started</span></a><a class="docs-next button" href="/locust/docs/deploy"><span>Deploy</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#create-a-job">Create a job</a></li><li><a href="#validate-the-job">Validate the job</a></li><li><a href="#test-the-job">Test the job</a></li><li><a href="#run-the-job">Run the job</a><ul class="toc-headings"><li><a href="#setup">Setup</a></li><li><a href="#persistence">Persistence</a></li><li><a href="#run">Run</a></li></ul></li><li><a href="#reference">Reference</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/locust/" class="nav-home"><img src="/locust/img/favicon.ico" alt="Locust" width="66" height="58"/></a><div><h5>Docs</h5><a href="/locust/docs/en/getting_started">Getting Started</a><a href="/locust/docs/en/api">API Reference</a><a href="/locust/docs/en/cli">CLI Reference</a></div><div><h5>GitHub</h5><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Repository</a><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Issues</a></div></section><section class="copyright">Copyright © 2019 Ani Channarasappa</section></footer></div></body></html>
