@@ -1,0 +1,24 @@
+{
+  "docs": {
+    "About": [
+      "overview",
+      "roadmap"
+    ],
+    "Usage": [
+      "getting_started",
+      "develop",
+      "deploy",
+      "operate"
+    ],
+    "Reference": [
+      "api",
+      "cli",
+      "lifecycle",
+      "architecture"
+    ],
+    "Guides": [
+      "deployment",
+      "scraping"
+    ]
+  }
+}
