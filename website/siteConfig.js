@@ -27,7 +27,8 @@ const siteConfig = {
   enableUpdateTime: true,
   markdownPlugins: [
     require('remarkable-admonitions')({ icon: 'svg-inline' })
-  ]
+  ],
+  cname: 'locust.dev'
 };
 
 module.exports = siteConfig;
