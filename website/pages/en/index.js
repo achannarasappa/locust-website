@@ -11,7 +11,6 @@ class Index extends React.Component {
       <div>
         <div className="hero-container">
           <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700|Viga&display=swap" rel="stylesheet" />
-          <script src="https://kit.fontawesome.com/112ad9ad9e.js"></script>
           <Container>
             <Row>
               <Col>
