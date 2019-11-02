@@ -1,0 +1,156 @@
+/* your custom css */
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: #E8BE2D;
+}
+a:hover {
+  color: #FAD556;
+  text-decoration: none;
+}
+
+.color-primary-0 { color: #E8BE2D }
+.color-primary-1 { color: #FFE280 }
+.color-primary-2 { color: #FAD556 }
+.color-primary-3 { color: #C19A10 }
+.color-primary-4 { color: #997700 }
+
+.color-primary-dark-0 { color: #3D3C37 }
+.color-primary-dark-1 { color: #646157 }
+.color-primary-dark-2 { color: #4E4C45 }
+.color-primary-dark-3 { color: #393731 }
+.color-primary-dark-4 { color: #312E22 }
+
+.color-dark-0 { color: #202022 }
+.color-dark-1 { color: #39383F }
+.color-dark-2 { color: #2B2A2E }
+.color-dark-3 { color: #1B1B1E }
+.color-dark-4 { color: #17161E }
+
+.hljs {
+  background: #1B1B1E;
+}
+
+.fixedHeaderContainer, .hero-container, .nav-footer {
+  background: #2B2A2E;
+}
+
+.hero-container {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Roboto', sans-serif;
+}
+.summary-container {
+  padding: 40px 0;
+  background: #39383F;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.summary-container hr, .featured-container hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 15px 15px 30px 15px;
+}
+
+.header-hero, .headerTitleWithLogo {
+  color: #fff;
+  font-family: 'Viga', sans-serif;
+}
+
+.header-hero {
+  text-align: center;
+  padding: 20px 0 0 0;
+  color: #E8BE2D;
+  margin: 0;
+}
+
+.subheader-hero {
+  text-align: center;
+  padding: 0 0 20px 0;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+}
+
+.section-header {
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.featured-container {
+  padding: 40px 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.featured-container-dark {
+  background: #2B2A2E;
+}
+
+.featured-container-light {
+  background: #39383F;
+}
+
+.featured-container hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 10px 0px 10px 0px;
+}
+
+.featured-column {
+  display: flex;
+  align-items: center;
+}
+
+.featured-box {
+  width: 100%;
+}
+
+.featured-column .featured-title {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.featured-reference {
+  text-align: center;
+  font-size: 12px;
+}
+
+.hero-terminal {
+  margin: 0 auto;
+}
+
+.admonition {
+  font-size: 14px;
+}
+.admonition h5{
+  font-size: 14px;
+  font-weight: bold;
+}
+.admonition svg{
+  height: 14px;
+  width: 14px;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+
+}
