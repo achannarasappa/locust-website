@@ -170,6 +170,8 @@ Filters which links are added to the queue from the page based on the hostname. 
 ## class: `BrowserError`
 
 * `locust.error.BrowserError(response)`
+  * `message` `<string>`
+  * `url` `<string>`
   * [`response`](#object-response) `<Object>`
 
 Thrown when Chrome encounters an error 
@@ -181,3 +183,19 @@ Thrown when Chrome encounters an error
   * `url` `<string>`
 
   Thrown when Locust encounters an error that causes it to abort
+
+## class: `QueueEndError`
+
+* `locust.error.QueueEndError(message, url)`
+  * `message` `<string>`
+  * `url` `<string>`
+
+  Returned when a global queue end condition is met e.g. no more queued jobs remaining or depth limit has been met
+
+## class: `QueueError`
+
+* `locust.error.QueueError(message, url)`
+  * `message` `<string>`
+  * `url` `<string>`
+
+  Returned when a transient condition its met where another job can not be started e.g. concurrency limit has been met
