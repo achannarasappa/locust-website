@@ -61,7 +61,7 @@
 <ul>
 <li><a href="#object-jobdefinition"><code>jobDefinition</code></a> <code>&lt;Object&gt;</code></li>
 </ul>
-<p>returns: <code>&lt;Promise&lt;Object&gt;&gt;</code> See <a href="#object-jobresult">jobResult</a></p>
+<p>returns: <code>&lt;Promise&lt;Object&gt;&gt;</code> Returns a promise that resolves to a <a href="#object-jobresult">jobResult</a></p>
 <pre><code class="hljs css language-js"><span class="hljs-comment">// example.js</span>
 <span class="hljs-keyword">const</span> { execute } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'locust'</span>);
 <span class="hljs-keyword">const</span> execSync = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
@@ -78,8 +78,7 @@
       <span class="hljs-attr">host</span>: <span class="hljs-string">'localhost'</span>
     },
     <span class="hljs-attr">chrome</span>: {
-      <span class="hljs-attr">port</span>: <span class="hljs-number">3000</span>,
-      <span class="hljs-attr">host</span>: <span class="hljs-string">'localhost'</span>
+      <span class="hljs-attr">browserWSEndpoint</span>: <span class="hljs-string">'ws://localhost:3000'</span>
     },
   }
 };
@@ -92,30 +91,29 @@
 <li><code>jobDefinition</code> <code>&lt;Object&gt;</code>
 <ul>
 <li><code>url</code> <code>&lt;string&gt;</code> the entrypoint url for the job</li>
-<li><a href="#function-beforeall"><code>beforeAll</code></a> <code>&lt;Function&gt;</code> [optional]</li>
-<li><a href="#function-before"><code>before</code></a> <code>&lt;Function&gt;</code> [optional]</li>
-<li><a href="#function-after"><code>after</code></a> <code>&lt;Function&gt;</code> [optional]</li>
+<li><a href="#function-beforeall"><code>beforeAll</code></a> <code>&lt;Function&gt;</code> <div class="tag-magenta">optional</div></li>
+<li><a href="#function-before"><code>before</code></a> <code>&lt;Function&gt;</code> <div class="tag-magenta">optional</div></li>
+<li><a href="#function-after"><code>after</code></a> <code>&lt;Function&gt;</code> <div class="tag-magenta">optional</div></li>
 <li><a href="#function-start"><code>start</code></a> <code>&lt;Function&gt;</code></li>
-<li><a href="#function-extract"><code>extract</code></a> <code>&lt;Function&gt;</code> [optional]</li>
+<li><a href="#function-extract"><code>extract</code></a> <code>&lt;Function&gt;</code> <div class="tag-magenta">optional</div></li>
 <li><code>config</code> <code>&lt;Object&gt;</code> Defines settings that determine global behavior of Locust
 <ul>
-<li><code>name</code> <code>&lt;string&gt;</code> a name for the job</li>
+<li><code>name</code> <code>&lt;string&gt;</code> a unique name to identify the job</li>
 <li><code>concurrencyLimit</code> <code>&lt;Number&gt;</code> the maximum number of concurrent jobs</li>
 <li><code>depthLimit</code> <code>&lt;Number&gt;</code> the maximum link depth from the entrypoint url - when met, the Locust will stop processing additional jobs accross all instances of this job</li>
-<li><code>delay</code> <code>&lt;Number&gt;</code> wait time in milliseconds before starting a job after popping it from the queue</li>
+<li><code>delay</code> <code>&lt;Number&gt;</code> <div class="tag-magenta">optional</div> wait time in milliseconds before starting a job after popping it from the queue</li>
 </ul></li>
-<li><code>filter</code> <code>&lt;Function|Object&gt;</code> [optional] filter links by a <a href="api#object-filter">hostname</a> or <a href="api#function-filter">function</a></li>
+<li><code>filter</code> <code>&lt;Function|Object&gt;</code> <div class="tag-magenta">optional</div> filter links by a <a href="api#object-filter">hostname</a> or <a href="api#function-filter">function</a></li>
 <li><code>connection</code> <code>&lt;Object&gt;</code>
 <ul>
-<li><code>redis</code> <code>&lt;Object&gt;</code>
+<li><a href="https://github.com/luin/ioredis/blob/master/API.md#new_Redis_new"><code>redis</code></a> <code>&lt;Object&gt;</code> configuration for <a href="https://github.com/luin/ioredis">ioredis</a> to connect to Redis
 <ul>
 <li><code>host</code> <code>&lt;string&gt;</code></li>
 <li><code>port</code> <code>&lt;string&gt;</code></li>
 </ul></li>
-<li><code>chrome</code> <code>&lt;Object&gt;</code>
+<li><a href="https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerconnectoptions"><code>chrome</code></a> <code>&lt;Object&gt;</code> configuration for <a href="https://github.com/GoogleChrome/puppeteer">Puppeteer</a> to connect to Chrome
 <ul>
-<li><code>host</code> <code>&lt;string&gt;</code></li>
-<li><code>port</code> <code>&lt;string&gt;</code></li>
+<li><code>browserWSEndpoint</code> <code>&lt;string&gt;</code> web socket address of a Chrome instance</li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -272,4 +270,4 @@
 </ul>
 <p>Returned when a transient condition its met where another job can not be started e.g. concurrency limit has been met</p></li>
 </ul>
-</span></div></article></div><div class="docLastUpdate"><em>Last updated on 11/11/2019 by Ani Channarasappa</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/operate"><span class="arrow-prev">← </span><span>Operate</span></a><a class="docs-next button" href="/docs/cli"><span>CLI</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#function-executejobdefinition">function: <code>execute(jobDefinition)</code></a></li><li><a href="#object-jobdefinition">object: <code>jobDefinition</code></a><ul class="toc-headings"><li><a href="#object-jobresult">object: <code>jobResult</code></a></li><li><a href="#object-jobdata">object: <code>jobData</code></a></li><li><a href="#object-snapshot">object: <code>snapshot</code></a></li><li><a href="#object-response">object: <code>response</code></a></li><li><a href="#function-beforeall">function: <code>beforeAll</code></a></li><li><a href="#function-before">function: <code>before</code></a></li><li><a href="#function-after">function: <code>after</code></a></li><li><a href="#function-start">function: <code>start</code></a></li><li><a href="#function-extract">function: <code>extract</code></a></li><li><a href="#function-filter">function: <code>filter</code></a></li><li><a href="#object-filter">object: <code>filter</code></a></li></ul></li><li><a href="#class-browsererror">class: <code>BrowserError</code></a></li><li><a href="#class-generaljoberror">class: <code>GeneralJobError</code></a></li><li><a href="#class-queueenderror">class: <code>QueueEndError</code></a></li><li><a href="#class-queueerror">class: <code>QueueError</code></a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.ico" alt="Locust" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting_started">Getting Started</a><a href="/docs/en/api">API Reference</a><a href="/docs/en/cli">CLI Reference</a></div><div><h5>GitHub</h5><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Repository</a><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Issues</a></div></section><section class="copyright">Copyright © 2019 Ani Channarasappa</section></footer></div></body></html>
+</span></div></article></div><div class="docLastUpdate"><em>Last updated on 11/13/2019 by Ani Channarasappa</em></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/operate"><span class="arrow-prev">← </span><span>Operate</span></a><a class="docs-next button" href="/docs/cli"><span>CLI</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#function-executejobdefinition">function: <code>execute(jobDefinition)</code></a></li><li><a href="#object-jobdefinition">object: <code>jobDefinition</code></a><ul class="toc-headings"><li><a href="#object-jobresult">object: <code>jobResult</code></a></li><li><a href="#object-jobdata">object: <code>jobData</code></a></li><li><a href="#object-snapshot">object: <code>snapshot</code></a></li><li><a href="#object-response">object: <code>response</code></a></li><li><a href="#function-beforeall">function: <code>beforeAll</code></a></li><li><a href="#function-before">function: <code>before</code></a></li><li><a href="#function-after">function: <code>after</code></a></li><li><a href="#function-start">function: <code>start</code></a></li><li><a href="#function-extract">function: <code>extract</code></a></li><li><a href="#function-filter">function: <code>filter</code></a></li><li><a href="#object-filter">object: <code>filter</code></a></li></ul></li><li><a href="#class-browsererror">class: <code>BrowserError</code></a></li><li><a href="#class-generaljoberror">class: <code>GeneralJobError</code></a></li><li><a href="#class-queueenderror">class: <code>QueueEndError</code></a></li><li><a href="#class-queueerror">class: <code>QueueError</code></a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.ico" alt="Locust" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/getting_started">Getting Started</a><a href="/docs/en/api">API Reference</a><a href="/docs/en/cli">CLI Reference</a></div><div><h5>GitHub</h5><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Repository</a><a href="https://github.com/achannarasappa/locust/issues" target="_blank" rel="noreferrer noopener">Issues</a></div></section><section class="copyright">Copyright © 2019 Ani Channarasappa</section></footer></div></body></html>
