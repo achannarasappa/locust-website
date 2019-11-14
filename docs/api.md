@@ -10,7 +10,7 @@ sidebar_label: API
 
 * [`jobDefinition`](#object-jobdefinition) `<Object>`
 
-returns: `<Promise<Object>>` See [jobResult](#object-jobresult)
+returns: `<Promise<Object>>` Returns a promise that resolves to a [jobResult](#object-jobresult)
 
 ```js
 // example.js
@@ -43,23 +43,23 @@ Starts a Locust job. On first run, the job runs against the entrypoint url and o
 
 * `jobDefinition` `<Object>`
   * `url` `<string>` the entrypoint url for the job
-  * [`beforeAll`](#function-beforeall) `<Function>` [optional]
-  * [`before`](#function-before) `<Function>` [optional]
-  * [`after`](#function-after) `<Function>` [optional]
+  * [`beforeAll`](#function-beforeall) `<Function>` <div class="tag-magenta">optional</div>
+  * [`before`](#function-before) `<Function>` <div class="tag-magenta">optional</div>
+  * [`after`](#function-after) `<Function>` <div class="tag-magenta">optional</div>
   * [`start`](#function-start) `<Function>`
-  * [`extract`](#function-extract) `<Function>` [optional]
+  * [`extract`](#function-extract) `<Function>` <div class="tag-magenta">optional</div>
   * `config` `<Object>` Defines settings that determine global behavior of Locust
     * `name` `<string>` a unique name to identify the job
     * `concurrencyLimit` `<Number>` the maximum number of concurrent jobs
     * `depthLimit` `<Number>` the maximum link depth from the entrypoint url - when met, the Locust will stop processing additional jobs accross all instances of this job
-    * `delay` `<Number>` wait time in milliseconds before starting a job after popping it from the queue
-  * `filter` `<Function|Object>` [optional] filter links by a [hostname](api#object-filter) or [function](api#function-filter)
+    * `delay` `<Number>` <div class="tag-magenta">optional</div> wait time in milliseconds before starting a job after popping it from the queue
+  * `filter` `<Function|Object>` <div class="tag-magenta">optional</div> filter links by a [hostname](api#object-filter) or [function](api#function-filter)
   * `connection` `<Object>`
     * [`redis`](https://github.com/luin/ioredis/blob/master/API.md#new_Redis_new) `<Object>` configuration for [ioredis](https://github.com/luin/ioredis) to connect to Redis
       * `host` `<string>`
       * `port` `<string>`
     * [`chrome`](https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md#puppeteerconnectoptions) `<Object>` configuration for [Puppeteer](https://github.com/GoogleChrome/puppeteer) to connect to Chrome
-      * `browserWSEndpoint` `<string>` web socket address of a Chrome instance e.g. `ws://localhost:3000`
+      * `browserWSEndpoint` `<string>` web socket address of a Chrome instance
 
 Configuration object that defines how to connect to Chrome and Redis and how the system behaves.
 
