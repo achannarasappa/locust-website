@@ -29,8 +29,7 @@ const job = {
       host: 'localhost'
     },
     chrome: {
-      port: 3000,
-      host: 'localhost'
+      browserWSEndpoint: 'ws://localhost:3000'
     },
   }
 };
