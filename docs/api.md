@@ -164,6 +164,50 @@ Filter which links are added to the queue from the page
 
 Filters which links are added to the queue from the page based on the hostname. Both lists can be used in conjunction.
 
+## class: `GeneralJobError`
+
+* `locust.error.GeneralJobError(message, url)`
+  * `message` `<string>`
+  * `url` `<string>`
+
+Thrown when Locust encounters an error that causes it to abort
+
+```js
+// example.js
+const { execute, error: { GeneralJobError } } = require('locust');
+const job = require('./job');
+
+(async () => {
+  try {
+
+    await execute(job)
+
+  } catch (e) {
+
+    if (e instanceof GeneralJobError)
+      return console.log(e.message);
+
+    throw e;
+
+  }
+})()
+```
+
+## class: `QueueEndError`
+
+* `locust.error.QueueEndError(message, url)`
+  * `message` `<string>`
+  * `url` `<string>`
+
+Returned when a global queue end condition is met e.g. no more queued jobs remaining or depth limit has been met
+
+## class: `QueueError`
+
+* `locust.error.QueueError(message, url)`
+  * `message` `<string>`
+  * `url` `<string>`
+
+Returned when a transient condition its met where another job can not be started e.g. concurrency limit has been met
 
 ## class: `BrowserError`
 
@@ -173,27 +217,3 @@ Filters which links are added to the queue from the page based on the hostname. 
   * [`response`](#object-response) `<Object>`
 
 Thrown when Chrome encounters an error 
-
-## class: `GeneralJobError`
-
-* `locust.error.GeneralJobError(message, url)`
-  * `message` `<string>`
-  * `url` `<string>`
-
-  Thrown when Locust encounters an error that causes it to abort
-
-## class: `QueueEndError`
-
-* `locust.error.QueueEndError(message, url)`
-  * `message` `<string>`
-  * `url` `<string>`
-
-  Returned when a global queue end condition is met e.g. no more queued jobs remaining or depth limit has been met
-
-## class: `QueueError`
-
-* `locust.error.QueueError(message, url)`
-  * `message` `<string>`
-  * `url` `<string>`
-
-  Returned when a transient condition its met where another job can not be started e.g. concurrency limit has been met
