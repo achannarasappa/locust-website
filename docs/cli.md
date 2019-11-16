@@ -4,6 +4,10 @@ title: CLI
 sidebar_label: CLI
 ---
 
+:::warning Note
+`locust-cli` should be considered alpha-grade software. If you come across an issue, creating a [GitHub issue](https://github.com/achannarasappa/locust-cli/issues) would be much appricated.
+:::
+
 Locust CLI is a collection of command line tools intended to accelerate development and testing of Locust jobs
 
 ## Setup
