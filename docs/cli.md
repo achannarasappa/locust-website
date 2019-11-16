@@ -4,9 +4,17 @@ title: CLI
 sidebar_label: CLI
 ---
 
-## Commands
+Locust CLI is a collection of command line tools intended to accelerate development and testing of Locust jobs
 
-## `locust`
+## Setup
+
+```sh
+npm install @achannarasappa/locust-cli
+```
+
+## Usage
+
+### `locust`
 ```sh
 locust <command>
 
@@ -23,7 +31,7 @@ Options:
   -h, --help     Show help                                             [boolean]
 ```
 
-## `locust run`
+### `locust run`
 ```sh
 locust run <path_to_file>
 
@@ -39,7 +47,7 @@ Examples:
   locust run job.js -l -t -c  Include all response fields
 ```
 
-## `locust start`
+### `locust start`
 ```sh
 locust start <path_to_file>
 
