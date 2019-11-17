@@ -127,9 +127,20 @@ User defined hook to run before every job is processed
 * `jobDefinition.after(jobResult, snapshot, stopQueue)`
   * [`jobResult`](#object-jobresult) `<Object>`
   * [`snapshot`](#object-snapshot) `<Object>` A snapshot of the Redis queue after the new links for the current job were added to the queue
-  * [`jobData`](#object-jobdata) `<Object>` Current job's data
+  * [`stopQueue`](#object-stopQueue) `<Function>` Callback function to send a global stop signal. In flight jobs are not stopped however no further jobs are started
 
 User defined hook to run after every job is processed
+
+```js
+...
+after: async (jobResult, snapshot, stop) => {
+
+    if (snapshot.queue.done.length >= 5)
+      await stop()
+
+  }
+...
+```
 
 ### function: `start`
 
