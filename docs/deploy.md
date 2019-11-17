@@ -54,7 +54,7 @@ const AWS = require('aws-sdk');
 const lambda = new AWS.Lambda({ apiVersion: '2015-03-31' });
 
 module.exports job = {
-  extract: async ($, browser) => ({
+  extract: async ($) => ({
     'title': await $('title'),
   }),
   start: () => lambda.invoke({

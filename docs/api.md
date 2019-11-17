@@ -144,6 +144,7 @@ User defined hook to define how to invoke a new instance of Locust within the pa
     * [`selector`](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors) `<string>` CSS selector e.g. `ul li .description`
     * returns: `<Promise<string>>` the [text content](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) of the first element at the selector
     * throws [`BrowserError`](#class-browsererror): when there is no element found at the selector
+  * `page` [`<Puppeteer.Page>`](https://pptr.dev/#?product=Puppeteer&version=v1.18.1&show=api-class-page) Puppeteer current page instance
   * `browser` [`<Puppeteer.Browser>`](https://pptr.dev/#?product=Puppeteer&version=v1.18.1&show=api-class-browser) Puppeteer browser instance
   * [`jobData`](#object-jobdata) `<Object>` Current job's data
 
