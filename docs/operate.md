@@ -90,3 +90,7 @@ output "redis_hostname" {
 ##### Clear Redis state
 
 `redis-cli -c -h <insert_redis_hostname> -p 6379 KEYS "sc:*" | xargs redis-cli -c -h <insert_redis_hostname> -p 6379 DEL`
+
+### Platform Caveats
+
+* AWS Lambda functions will [retry on error](https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html) by default
