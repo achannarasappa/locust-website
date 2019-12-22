@@ -28,7 +28,10 @@ const siteConfig = {
   markdownPlugins: [
     require('remarkable-admonitions')({ icon: 'svg-inline' })
   ],
-  cname: 'locust.dev'
+  cname: 'locust.dev',
+  scripts: [
+    'https://locust.dev/heap.js'
+  ]
 };
 
 module.exports = siteConfig;
