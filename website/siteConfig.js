@@ -30,7 +30,7 @@ const siteConfig = {
   ],
   cname: 'locust.dev',
   scripts: [
-    'https://locust.dev/heap.js'
+    'https://locust-static.s3.us-east-1.amazonaws.com/heap.js'
   ]
 };
 
