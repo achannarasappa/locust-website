@@ -15,6 +15,7 @@ class Index extends React.Component {
             <Row>
               <Col>
                 <h1 className="header-hero">Locust</h1>
+                <img className="logo-hero" src="/img/locust-logo.svg"/>
                 <div className="subheader-hero">Distributed web data discovery and collection framework</div>
               </Col>
             </Row>

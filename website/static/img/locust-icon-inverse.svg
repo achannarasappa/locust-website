@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="200"
+   viewBox="0 0 52.916666 52.916666"
+   version="1.1"
+   id="svg906"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="locust-icon-inverse.svg">
+  <defs
+     id="defs900" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="185.9089"
+     inkscape:cy="63.60068"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showguides="false"
+     inkscape:window-width="2560"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1481" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata903">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-244.08334)">
+    <circle
+       style="opacity:1;fill:#070707;fill-opacity:1;stroke:none;stroke-width:0.24291882"
+       id="path1561"
+       cx="26.316593"
+       cy="270.39996"
+       r="24.899181" />
+    <path
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.92769378"
+       d="M 100 4.7929688 A 95.088632 95.088632 0 0 0 4.9121094 99.880859 A 95.088632 95.088632 0 0 0 100 194.96875 A 95.088632 95.088632 0 0 0 195.08789 99.880859 A 95.088632 95.088632 0 0 0 100 4.7929688 z M 45 33.382812 C 45 33.382812 73.691233 62.102483 94.375 94.375 C 94.375 94.375 81.291242 88.566406 53.712891 88.566406 C 49.312092 77.271023 45 33.382812 45 33.382812 z M 155.36719 33.382812 C 155.36719 33.382812 151.05313 77.271023 146.65234 88.566406 C 119.07398 88.566406 105.99219 94.375 105.99219 94.375 C 126.67595 62.102445 155.36719 33.382812 155.36719 33.382812 z M 100.18555 45 C 100.18555 45 103.08976 56.617293 105.99414 87.113281 C 103.08976 91.469792 103.08984 94.375 103.08984 94.375 C 101.63765 93.648726 100.91164 93.285156 100.18555 93.285156 C 99.459442 93.285156 98.733443 93.648915 97.28125 94.375 C 97.28125 94.375 97.281339 91.469792 94.376953 87.113281 C 97.281339 56.617293 100.18555 45 100.18555 45 z M 94.375 97.279297 C 79.853099 120.51432 56.617186 177.14844 56.617188 177.14844 C 56.617188 177.14844 66.180659 143.00222 68.234375 101.63477 C 68.234375 101.63477 79.853099 101.63588 94.375 97.279297 z M 105.99219 97.279297 C 120.51409 101.63588 132.13086 101.63477 132.13086 101.63477 C 134.18458 143.00222 143.74805 177.14844 143.74805 177.14844 C 143.74805 177.14844 120.51409 120.51432 105.99219 97.279297 z M 97.279297 98.730469 C 98.731486 99.456516 99.457505 99.820313 100.18359 99.820312 C 100.90968 99.820312 101.6357 99.456365 103.08789 98.730469 C 103.08789 98.730469 103.08781 100.18248 105.99219 104.53906 C 105.99219 145.20039 100.18359 188.76758 100.18359 188.76758 C 100.18359 188.76758 94.375 145.20039 94.375 104.53906 C 97.279382 100.18248 97.279297 98.730469 97.279297 98.730469 z "
+       id="path1487"
+       transform="matrix(0.26458333,0,0,0.26458333,0,244.08334)" />
+  </g>
+</svg>

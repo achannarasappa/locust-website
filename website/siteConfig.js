@@ -11,8 +11,8 @@ const siteConfig = {
     { doc: 'cli', label: 'CLI' },
     { href: 'https://github.com/achannarasappa/locust', label: 'GitHub' },
   ],
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
+  headerIcon: 'img/locust-logo-white.svg',
+  footerIcon: 'img/locust-icon-inverse.svg',
   favicon: 'img/favicon.ico',
   colors: {
     primaryColor: '#2B2A2E',

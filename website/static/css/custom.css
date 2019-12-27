@@ -6,6 +6,8 @@ body {
 
 a {
   color: #E8BE2D;
+  transition: color 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 a:hover {
   color: #FAD556;
@@ -30,12 +32,33 @@ a:hover {
 .color-dark-3 { color: #1B1B1E }
 .color-dark-4 { color: #17161E }
 
+.navigationSlider .slidingNav ul li a {
+  transition: color 0.3s ease;
+}
+
+.fixedHeaderContainer header img {
+  height: 22px;
+  margin-right: 5px;
+}
+
+.fixedHeaderContainer a {
+  opacity: 0.8;
+}
+
+.fixedHeaderContainer a:hover {
+  opacity: 1;
+}
+
 .hljs {
   background: #1B1B1E;
 }
 
 .fixedHeaderContainer, .hero-container, .nav-footer {
   background: #2B2A2E;
+}
+
+.nav-footer .sitemap .nav-home {
+  opacity: 1;
 }
 
 .hero-container {
@@ -55,14 +78,20 @@ a:hover {
 
 .header-hero, .headerTitleWithLogo {
   color: #fff;
-  font-family: 'Viga', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+.fixedHeaderContainer header .headerTitleWithLogo {
+  font-size: 1em;
 }
 
 .header-hero {
   text-align: center;
   padding: 20px 0 0 0;
-  color: #E8BE2D;
+  color: #fff;
   margin: 0;
+  opacity: 0.9;
 }
 
 .subheader-hero {
@@ -72,6 +101,13 @@ a:hover {
   font-weight: 100;
   font-size: 22px;
   letter-spacing: 1.5px;
+}
+
+.logo-hero {
+  margin: 30px auto;
+  height: 150px;
+  width: 100%;
+  opacity: 0.9;
 }
 
 .section-header {
