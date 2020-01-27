@@ -14,7 +14,8 @@
       "api",
       "cli",
       "lifecycle",
-      "architecture"
+      "architecture",
+      "concepts"
     ],
     "Guides": [
       "deployment",
