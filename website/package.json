@@ -9,13 +9,13 @@
     "rename-version": "docusaurus-rename-version"
   },
   "devDependencies": {
-    "docusaurus": "^1.14.3"
+    "docusaurus": "^1.14.4"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "reactstrap": "^8.0.0",
-    "remarkable-admonitions": "^0.2.1"
+    "bootstrap": "^4.5.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "reactstrap": "^8.4.1",
+    "remarkable-admonitions": "^0.2.2"
   }
 }
