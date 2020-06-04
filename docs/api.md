@@ -50,6 +50,7 @@ Starts a Locust job. On first run, the job runs against the entrypoint url and o
   * [`extract`](#function-extract) `<Function>` <div class="tag-magenta">optional</div>
   * `config` `<Object>` Defines settings that determine global behavior of Locust
     * `name` `<string>` a unique name to identify the job
+    * `logLevel` `<Number>` <div class="tag-magenta">optional</div> RFC5424 log [level](https://github.com/winstonjs/winston#logging-levels) - logging is disabled if omitted
     * `concurrencyLimit` `<Number>` the maximum number of concurrent jobs
     * `depthLimit` `<Number>` the maximum link depth from the entrypoint url - when met, the Locust will stop processing additional jobs accross all instances of this job
     * `delay` `<Number>` <div class="tag-magenta">optional</div> wait time in milliseconds before starting a job after popping it from the queue

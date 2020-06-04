@@ -15,7 +15,19 @@ Work in progress guide
 
 ## Common
 
-Locust does not yet have any common functionality to simplify operations. Cloud provider specific solutions will need to be used in lieu.
+Common operational tooling is a work in progress however proprietary cloud provider solutions can be used to achieve similar results.
+
+### Logging
+
+Log level can be specified in the [`jobDefinition.config.logLevel`](https://locust.dev/docs/api#object-jobdefinition). Logging is disabled when the log level property is omitted.
+
+Log output is JSON formatted:
+```sh
+{"message":"Started executing job","level":"info","source":"locust","timestamp":"2020-06-04T15:33:26.469Z"}
+{"message":"Aborting job since temporary limit was met","level":"info","source":"locust","timestamp":"2020-06-04T15:33:28.342Z"}
+``` 
+
+At `info` level, only start, end, and errors are logged. At `debug` detailed output of each action Locust takes is logged.
 
 ## Amazon Web Services
 ### Initiate
